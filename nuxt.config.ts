@@ -1,7 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
 
-export default {
+const nuxtConfig = {
   mode: 'universal',
+  srcDir: 'src/',
+
   /*
    ** Headers of the page
    */
@@ -37,6 +39,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build',
     '@nuxtjs/vuetify'
   ],
   /*
@@ -73,6 +76,10 @@ export default {
       }
     }
   },
+  typescript: {
+    typeCheck: true,
+    ignoreNotFoundWarnings: true
+  },
   /*
    ** Build configuration
    */
@@ -80,6 +87,9 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, _ctx) {
+      config.devtool = 'inline-cheap-module-source-map'
+    }
   }
 }
+module.exports = nuxtConfig
