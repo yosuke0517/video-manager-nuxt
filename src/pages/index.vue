@@ -66,6 +66,7 @@
 import { Vue, Component } from 'nuxt-property-decorator'
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import ROUTES from '~/routes/api'
 
 @Component({
   components: {
@@ -73,5 +74,12 @@ import VuetifyLogo from '~/components/VuetifyLogo.vue'
     VuetifyLogo
   }
 })
-export default class IndexPage extends Vue {}
+export default class IndexPage extends Vue {
+  async fetch() {
+    const payload = {
+      uri: ROUTES.GET.POPULARS
+    }
+    await this.$store.dispatch('fetchPopularVideos', payload)
+  }
+}
 </script>
