@@ -79,7 +79,7 @@ export default class IndexPage extends Vue {
     const payload = {
       uri: ROUTES.GET.POPULARS
     }
-    await this.$store.dispatch('fetchPopularVideos', payload)
+    await this.$store.dispatch('videfetchPopularVideos', payload)
   }
 }
 </script>
