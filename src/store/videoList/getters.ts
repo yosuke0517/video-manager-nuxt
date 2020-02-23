@@ -3,7 +3,8 @@ import { VideoListState } from '~/types/videoList/state'
 import { RootState } from '~/types/state'
 
 const getters: GetterTree<VideoListState, RootState> = {
-  describe: (state) => state.describe
+  meta: (state) => state.meta,
+  items: (state) => state.items
 }
 
 export default getters

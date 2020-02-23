@@ -1,5 +1,6 @@
-import { DescribeTransfer } from '~/types'
+import { MetaTransfer, Items } from '~/types'
 
 export interface VideoListState {
-  describe: DescribeTransfer
+  meta: MetaTransfer
+  items: Items
 }

@@ -1,4 +1,4 @@
-export interface DescribeTransfer {
+export interface MetaTransfer {
   etag: string
   items: any
   kind: string

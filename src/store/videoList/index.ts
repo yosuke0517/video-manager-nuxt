@@ -6,7 +6,8 @@ import { VideoListState } from '~/types/videoList/state'
 import { RootState } from '~/types/state'
 
 const state: VideoListState = {
-  describe: null
+  meta: null,
+  items: null
 }
 
 const videoList: Module<VideoListState, RootState> = {

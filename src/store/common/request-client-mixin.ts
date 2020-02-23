@@ -1,11 +1,17 @@
+import '@nuxtjs/axios'
 export class RequestClient {
+  axios: any
+  constructor(axios) {
+    this.axios = axios
+  }
+
   async get(uri, params = {}) {
-    // ①
     const queryString = Object.keys(params)
       .map((key) => key + '=' + params[key])
       .join('&') // ②
     const query = queryString.length > 0 ? `${uri}?${queryString}` : uri
-    return await this.$axios.$get(query)
+    // eslint-disable-next-line no-return-await
+    return await this.axios.$get(query)
   }
 }
 export function createRequestClient(axios) {

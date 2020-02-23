@@ -3,8 +3,11 @@ import { VideoListState } from '~/types/videoList/state'
 
 const mutations: MutationTree<VideoListState> = {
   /** 初期表示時情報 */
-  describe(state, { describe }) {
-    state.describe = describe
+  meta(state, { meta }) {
+    state.meta = meta
+  },
+  items(state, { items }) {
+    state.items = items
   }
 }
 
