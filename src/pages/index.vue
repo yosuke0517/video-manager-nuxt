@@ -5,6 +5,7 @@
         <div v-for="item in items" :key="item.id" class="block video-block">
           <AppVideo :item="item" :video-id="item.id"></AppVideo>
         </div>
+        <v-btn color="blue" @click="loadMore">More...</v-btn>
       </div>
     </v-flex>
   </v-layout>
@@ -27,6 +28,8 @@ import { Items } from '~/types'
 })
 export default class IndexPage extends Vue {
   @Getter('videoList/items') items: Items[]
+
+  @Getter('videoList/meta') metaData: any
   // async fetch() {
   //   const payload = {
   //     uri: ROUTES.GET.POPULARS
@@ -42,6 +45,20 @@ export default class IndexPage extends Vue {
       uri: ROUTES.GET.POPULARS
     }
     await this.$store.dispatch('videoList/discribe', payload)
+  }
+
+  loadMore() {
+    const payload = {
+      uri: ROUTES.GET.POPULARS,
+      params: {
+        pageToken: this.nextPageToken
+      }
+    }
+    this.$store.dispatch('videoList/more', payload)
+  }
+
+  get nextPageToken() {
+    return this.metaData.nextPageToken
   }
 }
 </script>

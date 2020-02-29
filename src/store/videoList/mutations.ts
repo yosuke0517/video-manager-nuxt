@@ -7,7 +7,21 @@ const mutations: MutationTree<VideoListState> = {
     state.meta = meta
   },
   items(state, { items }) {
-    state.items = items
+    if (typeof items.items !== 'undefined') {
+      items.items.forEach((item) => {
+        state.items.push(item)
+      })
+    } else {
+      state.items = items
+    }
+  },
+  item(state, { payload }) {
+    const params =
+      payload.items && payload.items.length > 0 ? payload.items[0] : {}
+    state.item = params
+  },
+  mutateRelatedVideos(state, { payload }) {
+    state.relatedItems = payload.items || []
   }
 }
 

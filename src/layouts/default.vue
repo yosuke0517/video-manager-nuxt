@@ -35,7 +35,10 @@
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <nuxt-link class="homeLink" to="/">
+        <v-toolbar-title v-text="title" />
+      </nuxt-link>
+
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
@@ -93,3 +96,9 @@ export default class Default extends Vue {
   }
 }
 </script>
+<style scoped>
+.homeLink {
+  color: white;
+  text-decoration: none;
+}
+</style>

@@ -32,7 +32,7 @@ const nuxtConfig = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/omit-filter'],
+  plugins: ['~/plugins/omit-filter', '~/plugins/vue-youtube'],
   /*
    ** Nuxt.js dev-modules
    */

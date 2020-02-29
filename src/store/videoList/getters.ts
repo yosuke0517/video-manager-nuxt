@@ -4,7 +4,9 @@ import { RootState } from '~/types/state'
 
 const getters: GetterTree<VideoListState, RootState> = {
   meta: (state) => state.meta,
-  items: (state) => state.items
+  items: (state) => state.items,
+  item: (state) => state.item,
+  relatedItems: (state) => state.relatedItems
 }
 
 export default getters
