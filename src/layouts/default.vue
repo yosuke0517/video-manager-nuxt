@@ -35,7 +35,10 @@
       <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-toolbar-title v-text="title" />
+      <nuxt-link class="homeLink" to="/">
+        <v-toolbar-title v-text="title" />
+      </nuxt-link>
+
       <v-spacer />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
@@ -64,30 +67,38 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+<script lang="ts">
+import { Vue, Component } from 'nuxt-property-decorator'
+@Component({})
+export default class Default extends Vue {
+  clipped: boolean = false
+  drawer: boolean = false
+  fixed: boolean = false
+  items: object = null
+
+  miniVariant: boolean = false
+  right: boolean = true
+  rightDrawer: boolean = false
+  title: string = 'VideoManager'
+  created() {
+    this.items = [
+      {
+        icon: 'mdi-apps',
+        title: 'Welcome',
+        to: '/'
+      },
+      {
+        icon: 'mdi-chart-bubble',
+        title: 'Inspire',
+        to: '/inspire'
+      }
+    ]
   }
 }
 </script>
+<style scoped>
+.homeLink {
+  color: white;
+  text-decoration: none;
+}
+</style>

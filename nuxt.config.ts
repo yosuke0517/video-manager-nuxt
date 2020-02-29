@@ -32,7 +32,7 @@ const nuxtConfig = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/omit-filter', '~/plugins/vue-youtube'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -54,7 +54,12 @@ const nuxtConfig = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:8080/'
+  },
+  proxy: {
+    '/api': '/'
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
