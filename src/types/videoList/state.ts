@@ -4,5 +4,7 @@ export interface VideoListState {
   meta: MetaTransfer
   items: Items[]
   item: Items
-  relatedItems: []
+  relatedItems: Items[]
+  searchMeta: MetaTransfer
+  searchItems: Items[]
 }

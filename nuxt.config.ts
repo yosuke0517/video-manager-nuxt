@@ -1,8 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
-
+require('dotenv').config()
 const nuxtConfig = {
   mode: 'universal',
   srcDir: 'src/',
+  router: {
+    middleware: ['auth-cookie']
+  },
 
   /*
    ** Headers of the page
@@ -32,7 +35,14 @@ const nuxtConfig = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/omit-filter', '~/plugins/vue-youtube'],
+  plugins: [
+    '~/plugins/omit-filter',
+    '~/plugins/vue-youtube',
+    { src: '~/plugins/vuetify.ts', ssr: false },
+    '~/plugins/firebase',
+    '~/plugins/nuxt-i18n',
+    '~/plugins/vee-validate'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -48,7 +58,8 @@ const nuxtConfig = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Axios module configuration
