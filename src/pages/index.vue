@@ -2,6 +2,20 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <div class="text-center">
+        <v-row>
+          <v-col offset="1" cols="7" md="7">
+            <v-text-field v-model="query" outlined single-line hide-details
+              ><template v-slot:label>
+                検索 here（文字列を入力してください）！！
+                <v-icon small>fas fa-search</v-icon>
+              </template></v-text-field
+            > </v-col
+          ><v-col cols="3" md="3">
+            <v-btn class="searchBtn" large color="info" @click="search"
+              >検索</v-btn
+            >
+          </v-col>
+        </v-row>
         <div v-for="item in items" :key="item.id" class="block video-block">
           <AppVideo :item="item" :video-id="item.id"></AppVideo>
         </div>
@@ -13,16 +27,13 @@
 
 <script lang="ts">
 import { Vue, Component, Getter } from 'nuxt-property-decorator'
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
 import AppVideo from '~/components/app-video.vue'
 import ROUTES from '~/routes/api'
 import { Items } from '~/types'
 
 @Component({
+  middleware: 'authed',
   components: {
-    Logo,
-    VuetifyLogo,
     AppVideo
   }
 })
@@ -30,6 +41,12 @@ export default class IndexPage extends Vue {
   @Getter('videoList/items') items: Items[]
 
   @Getter('videoList/meta') metaData: any
+
+  query: string = ''
+  searchParam = {
+    q: ''
+  }
+
   // async fetch() {
   //   const payload = {
   //     uri: ROUTES.GET.POPULARS
@@ -45,6 +62,11 @@ export default class IndexPage extends Vue {
       uri: ROUTES.GET.POPULARS
     }
     await this.$store.dispatch('videoList/discribe', payload)
+  }
+
+  search() {
+    this.searchParam.q = this.query
+    this.$router.push({ path: '/search', query: this.searchParam })
   }
 
   loadMore() {

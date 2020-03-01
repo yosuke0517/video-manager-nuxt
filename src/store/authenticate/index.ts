@@ -2,19 +2,14 @@ import { Module } from 'vuex'
 import getters from './getters'
 import actions from './actions'
 import mutations from './mutations'
-import { VideoListState } from '~/types/videoList/state'
+import { AuthenticatetState } from '~/types/authenticate/state'
 import { RootState } from '~/types/state'
 
-const state: VideoListState = {
-  meta: null,
-  items: null,
-  item: null,
-  relatedItems: null,
-  searchMeta: null,
-  searchItems: null
+const state: AuthenticatetState = {
+  token: null
 }
 
-const videoList: Module<VideoListState, RootState> = {
+const videoList: Module<AuthenticatetState, RootState> = {
   namespaced: true,
   state,
   getters,

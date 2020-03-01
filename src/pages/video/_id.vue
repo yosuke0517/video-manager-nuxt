@@ -1,39 +1,46 @@
 <template>
   <div class="video-box">
-    <v-card class="video-box">
-      <youtube ref="youtube" :video-id="this.$route.params.id"></youtube>
-      <v-card-text>
-        <span class="title">{{ item.snippet.title }}</span>
-      </v-card-text>
-      <v-card-text>
-        <span class="title">{{ item.snippet.description }}</span>
-      </v-card-text>
-    </v-card>
-    <div class="box"></div>
-    <div class="box">
-      <v-system-bar window color="primary">関連動画</v-system-bar>
-      <div v-for="relatedItem in relatedItems" :key="relatedItem.id.videoId">
-        <hr />
-        <nuxt-link :to="`/video/${relatedItem.id.videoId}`">
-          <article class="media">
-            <div class="media-left">
-              <figure class="image">
-                <img
-                  :src="relatedItem.snippet.thumbnails.default.url"
-                  alt="thumbnail"
-                />
-              </figure>
-            </div>
-            <div class="media-content">
-              <div class="content">
-                <p>{{ relatedItem.snippet.title }}</p>
-                <small>{{ relatedItem.snippet.channelTitle }}</small>
-              </div>
-            </div>
-          </article>
-        </nuxt-link>
-      </div>
-    </div>
+    <v-layout column justify-center align-center>
+      <v-flex xs12 sm8 md6>
+        <v-card class="video-box">
+          <youtube ref="youtube" :video-id="this.$route.params.id"></youtube>
+          <v-card-text>
+            <span class="title">{{ item.snippet.title }}</span>
+          </v-card-text>
+          <v-card-text>
+            <span class="title">{{ item.snippet.description }}</span>
+          </v-card-text>
+        </v-card>
+        <div class="box"></div>
+        <div class="box">
+          <v-system-bar window color="primary">関連動画</v-system-bar>
+          <div
+            v-for="relatedItem in relatedItems"
+            :key="relatedItem.id.videoId"
+          >
+            <hr />
+            <nuxt-link :to="`/video/${relatedItem.id.videoId}`">
+              <article class="media">
+                <div class="media-left">
+                  <figure class="image">
+                    <img
+                      :src="relatedItem.snippet.thumbnails.default.url"
+                      alt="thumbnail"
+                    />
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <div class="content">
+                    <p>{{ relatedItem.snippet.title }}</p>
+                    <small>{{ relatedItem.snippet.channelTitle }}</small>
+                  </div>
+                </div>
+              </article>
+            </nuxt-link>
+          </div>
+        </div>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 

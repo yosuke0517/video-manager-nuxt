@@ -40,6 +40,9 @@
       </nuxt-link>
 
       <v-spacer />
+      <div v-if="isLogin" class="logout">
+        <v-btn rounded color="info" @click="logout">Logout</v-btn>
+      </div>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -68,9 +71,11 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, Getter } from 'nuxt-property-decorator'
+import { Token } from '~/types'
 @Component({})
 export default class Default extends Vue {
+  @Getter('authenticate/token') token: Token
   clipped: boolean = false
   drawer: boolean = false
   fixed: boolean = false
@@ -80,6 +85,11 @@ export default class Default extends Vue {
   right: boolean = true
   rightDrawer: boolean = false
   title: string = 'VideoManager'
+
+  get isLogin() {
+    return !!this.token
+  }
+
   created() {
     this.items = [
       {
@@ -94,11 +104,22 @@ export default class Default extends Vue {
       }
     ]
   }
+
+  logout() {
+    this.$store.dispatch('authenticate/logout')
+  }
 }
 </script>
 <style scoped>
 .homeLink {
   color: white;
   text-decoration: none;
+}
+.searchBtn {
+  top: 12px;
+}
+.logout {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>

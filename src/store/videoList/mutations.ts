@@ -22,6 +22,29 @@ const mutations: MutationTree<VideoListState> = {
   },
   mutateRelatedVideos(state, { payload }) {
     state.relatedItems = payload.items || []
+  },
+  // mutateSearchVideos(state, { payload }) {
+  //   if (typeof payload.items !== 'undefined') {
+  //     payload.items.forEach((item) => {
+  //       state.items.push(item)
+  //     })
+  //   } else {
+  //     state.searchItems = payload
+  //   }
+  //   state.searchItems = payload.items
+  //   state.searchMeta = payload
+  // }
+  searchMeta(state, { meta }) {
+    state.searchMeta = meta
+  },
+  searchItems(state, { items }) {
+    if (typeof items.items !== 'undefined') {
+      items.items.forEach((item) => {
+        state.searchItems.push(item)
+      })
+    } else {
+      state.searchItems = items
+    }
   }
 }
 

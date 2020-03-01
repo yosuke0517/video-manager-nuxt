@@ -39,6 +39,23 @@ const actions: ActionTree<VideoListState, RootState> = {
     const client = createRequestClient(this.$axios)
     const res = await client.get(payload.uri)
     commit('mutateRelatedVideos', { payload: res })
+  },
+  // 検索
+  async searchVideos({ commit }, payload) {
+    const client = createRequestClient(this.$axios)
+    const res = await client.get(payload.uri, payload.params)
+    commit('searchMeta', { meta: res })
+    commit('searchItems', { items: res.items })
+  },
+  async searchMore({ commit }, payload: videoListFilter) {
+    const client = createRequestClient(this.$axios)
+    const res: MetaTransfer = await client.get(payload.uri, payload.params)
+    const morePayload = {
+      items: res.items,
+      isMore: true
+    }
+    commit('searchMeta', { meta: res })
+    commit('searchItems', { items: morePayload })
   }
 }
 
