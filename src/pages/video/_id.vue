@@ -34,29 +34,31 @@
         >
         <div class="box">
           <v-system-bar window color="primary">関連動画</v-system-bar>
-          <div
-            v-for="relatedItem in relatedItems"
-            :key="relatedItem.id.videoId"
-          >
-            <hr />
-            <nuxt-link :to="`/video/${relatedItem.id.videoId}`">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image">
-                    <img
-                      :src="relatedItem.snippet.thumbnails.default.url"
-                      alt="thumbnail"
-                    />
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>{{ relatedItem.snippet.title }}</p>
-                    <small>{{ relatedItem.snippet.channelTitle }}</small>
+          <div v-if="relatedItems.item !== null">
+            <div
+              v-for="relatedItem in relatedItems.item"
+              :key="relatedItem.id.videoId"
+            >
+              <hr />
+              <nuxt-link :to="`/video/${relatedItem.id.videoId}`">
+                <article class="media">
+                  <div class="media-left">
+                    <figure class="image">
+                      <img
+                        :src="relatedItem.snippet.thumbnails.default.url"
+                        alt="thumbnail"
+                      />
+                    </figure>
                   </div>
-                </div>
-              </article>
-            </nuxt-link>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>{{ relatedItem.snippet.title }}</p>
+                      <small>{{ relatedItem.snippet.channelTitle }}</small>
+                    </div>
+                  </div>
+                </article>
+              </nuxt-link>
+            </div>
           </div>
         </div>
       </v-flex>

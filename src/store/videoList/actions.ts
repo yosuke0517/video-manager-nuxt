@@ -1,4 +1,5 @@
 import { ActionTree } from 'vuex'
+import Cookies from 'universal-cookie'
 import { MetaTransfer } from '~/types/videoList'
 import { VideoListState } from '~/types/videoList/state'
 import { RootState } from '~/types/state'
@@ -10,13 +11,15 @@ import '@nuxtjs/axios'
 const actions: ActionTree<VideoListState, RootState> = {
   /** 初期情報取得 */
   async discribe({ commit }, payload: videoListFilter) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res: MetaTransfer = await client.get(payload.uri, payload.params)
     commit('meta', { meta: res })
     commit('items', { items: res.items })
   },
   async more({ commit }, payload: videoListFilter) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res: MetaTransfer = await client.get(payload.uri, payload.params)
     const morePayload = {
       items: res.items,
@@ -27,7 +30,8 @@ const actions: ActionTree<VideoListState, RootState> = {
   },
   // 詳細画面
   async findVideo({ commit }, payload) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res = await client.get(payload.uri)
     const params = {
       ...res.video_list
@@ -37,19 +41,22 @@ const actions: ActionTree<VideoListState, RootState> = {
   },
   // 関連動画
   async fetchRelatedVideos({ commit }, payload) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res = await client.get(payload.uri)
     commit('mutateRelatedVideos', { payload: res })
   },
   // 検索
-  async searchVideos({ commit }, payload) {
-    const client = createRequestClient(this.$axios)
+  async searchVideos({ commit }, payload: videoListFilter) {
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res = await client.get(payload.uri, payload.params)
     commit('searchMeta', { meta: res })
     commit('searchItems', { items: res.items })
   },
   async searchMore({ commit }, payload: videoListFilter) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res: MetaTransfer = await client.get(payload.uri, payload.params)
     const morePayload = {
       items: res.items,
@@ -59,15 +66,17 @@ const actions: ActionTree<VideoListState, RootState> = {
     commit('searchItems', { items: morePayload })
   },
   async toggleFavorite({ commit }, payload) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res = await client.post(payload.uri)
     commit('mutateToggleFavorite', { isFavorite: res.is_favorite })
   },
   // お気に入り
   async fetchFavoriteVideos({ commit }, payload) {
-    const client = createRequestClient(this.$axios)
+    const cookies = new Cookies()
+    const client = createRequestClient(this.$axios, cookies, this)
     const res = await client.get(payload.uri)
-    commit('mutateFavoriteVideos', { favoriteItems: res })
+    commit('mutateFavoriteVideos', { favoriteItems: res.items })
   }
 }
 

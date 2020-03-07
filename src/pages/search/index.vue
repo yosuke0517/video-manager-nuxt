@@ -29,7 +29,7 @@ import AppVideo from '~/components/app-video.vue'
   }
 })
 export default class SearchIndex extends Vue {
-  @Getter('videoList/items') items: Items[]
+  // @Getter('videoList/items') items: Items[]
 
   @Getter('videoList/searchMeta') searchMeta: MetaTransfer
 
@@ -43,7 +43,9 @@ export default class SearchIndex extends Vue {
     const q = encodeURIComponent(this.$route.query.q.toString()) || ''
     const payload = {
       uri: ROUTES.GET.SEARCH,
-      q
+      params: {
+        q
+      }
     }
     await this.$store.dispatch('videoList/searchVideos', payload)
   }
