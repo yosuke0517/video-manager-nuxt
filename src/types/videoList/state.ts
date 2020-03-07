@@ -7,4 +7,6 @@ export interface VideoListState {
   relatedItems: Items[]
   searchMeta: MetaTransfer
   searchItems: Items[]
+  isFavorite: boolean
+  favoriteItems: Items[]
 }

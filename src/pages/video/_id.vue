@@ -2,16 +2,36 @@
   <div class="video-box">
     <v-layout column justify-center align-center>
       <v-flex xs12 sm8 md6>
-        <v-card class="video-box">
-          <youtube ref="youtube" :video-id="this.$route.params.id"></youtube>
-          <v-card-text>
-            <span class="title">{{ item.snippet.title }}</span>
-          </v-card-text>
-          <v-card-text>
-            <span class="title">{{ item.snippet.description }}</span>
-          </v-card-text>
-        </v-card>
-        <div class="box"></div>
+        <v-row
+          ><v-col cols="8"
+            ><v-card class="video-box">
+              <youtube
+                ref="youtube"
+                :video-id="this.$route.params.id"
+              ></youtube>
+              <div v-if="isLoggedIn" class="favorite">
+                <a href="#" @click.prevent="toggleFavorite">
+                  <span class="icon is-large">
+                    <span class="fa-stack fa-lg">
+                      <i
+                        class="fas fa-heart fa-stack-1x"
+                        :class="[
+                          item.isFavorite ? 'active' : 'has-text-grey-light'
+                        ]"
+                      ></i></span></span
+                ></a>
+              </div>
+              <v-card-text>
+                <span class="title">{{ item.snippet.title }}</span>
+              </v-card-text>
+              <v-card-text>
+                <span class="title">{{ item.snippet.description }}</span>
+              </v-card-text>
+            </v-card></v-col
+          ><v-col cols="3"
+            >お気に入り動画がある場合に一覧を表示する</v-col
+          ></v-row
+        >
         <div class="box">
           <v-system-bar window color="primary">関連動画</v-system-bar>
           <div
@@ -66,14 +86,31 @@ export default class videoDetail extends Vue {
     await store.dispatch('videoList/findVideo', payload)
     await store.dispatch('videoList/fetchRelatedVideos', relatedVideosPayload)
   }
+
+  async toggleFavorite() {
+    await this.$store.dispatch('videoList/toggleFavorite', {
+      uri: ROUTES.POST.TOGGLE_FAVORITE.replace(':id', this.$route.params.id)
+    })
+  }
+
+  get isLoggedIn() {
+    return !!this.$store.state.authenticate.token
+  }
 }
 </script>
 
 <style scoped>
 .video-box {
-  max-width: 900px;
+  max-width: 1000px;
 }
 .img {
-  width: 600px;
+  width: 500px;
+}
+.favorite {
+  display: flex;
+  justify-content: flex-end;
+}
+.fa-heart.active {
+  color: #ff1493;
 }
 </style>

@@ -41,6 +41,7 @@
 
       <v-spacer />
       <div v-if="isLogin" class="logout">
+        <v-btn rounded color="info" to="/favorite" nuxt>お気に入り</v-btn>
         <v-btn rounded color="info" @click="logout">Logout</v-btn>
       </div>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">

@@ -32,6 +32,7 @@ const actions: ActionTree<VideoListState, RootState> = {
     const params = {
       ...res.video_list
     }
+    params.isFavorite = res.is_favorite || false
     commit('item', { payload: params })
   },
   // 関連動画
@@ -56,6 +57,17 @@ const actions: ActionTree<VideoListState, RootState> = {
     }
     commit('searchMeta', { meta: res })
     commit('searchItems', { items: morePayload })
+  },
+  async toggleFavorite({ commit }, payload) {
+    const client = createRequestClient(this.$axios)
+    const res = await client.post(payload.uri)
+    commit('mutateToggleFavorite', { isFavorite: res.is_favorite })
+  },
+  // お気に入り
+  async fetchFavoriteVideos({ commit }, payload) {
+    const client = createRequestClient(this.$axios)
+    const res = await client.get(payload.uri)
+    commit('mutateFavoriteVideos', { favoriteItems: res })
   }
 }
 
