@@ -11,7 +11,9 @@ const state: VideoListState = {
   item: null,
   relatedItems: null,
   searchMeta: null,
-  searchItems: null
+  searchItems: null,
+  isFavorite: null,
+  favoriteItems: null
 }
 
 const videoList: Module<VideoListState, RootState> = {

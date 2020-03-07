@@ -6,7 +6,8 @@ import { AuthenticatetState } from '~/types/authenticate/state'
 import { RootState } from '~/types/state'
 
 const state: AuthenticatetState = {
-  token: null
+  token: null,
+  isLoggedIn: null
 }
 
 const videoList: Module<AuthenticatetState, RootState> = {

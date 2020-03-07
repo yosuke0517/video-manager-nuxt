@@ -19,21 +19,13 @@ const mutations: MutationTree<VideoListState> = {
     const params =
       payload.items && payload.items.length > 0 ? payload.items[0] : {}
     state.item = params
+    // この式は左辺値がundefinedだった場合に右辺値が返る
+    params.isFavorite = payload.isFavorite || false
   },
   mutateRelatedVideos(state, { payload }) {
+    // nullのときは空の配列を返す
     state.relatedItems = payload.items || []
   },
-  // mutateSearchVideos(state, { payload }) {
-  //   if (typeof payload.items !== 'undefined') {
-  //     payload.items.forEach((item) => {
-  //       state.items.push(item)
-  //     })
-  //   } else {
-  //     state.searchItems = payload
-  //   }
-  //   state.searchItems = payload.items
-  //   state.searchMeta = payload
-  // }
   searchMeta(state, { meta }) {
     state.searchMeta = meta
   },
@@ -45,6 +37,13 @@ const mutations: MutationTree<VideoListState> = {
     } else {
       state.searchItems = items
     }
+  },
+  mutateToggleFavorite(state, { isFavorite }) {
+    state.isFavorite = isFavorite
+  },
+  mutateFavoriteVideos(state, { favoriteItems }) {
+    // nullのときは空の配列を返す
+    state.favoriteItems = favoriteItems.items || []
   }
 }
 

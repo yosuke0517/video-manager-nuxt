@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 require('dotenv').config()
 const nuxtConfig = {
-  mode: 'universal',
+  mode: 'spa',
   srcDir: 'src/',
   router: {
     middleware: ['auth-cookie']
@@ -41,7 +41,8 @@ const nuxtConfig = {
     { src: '~/plugins/vuetify.ts', ssr: false },
     '~/plugins/firebase',
     '~/plugins/nuxt-i18n',
-    '~/plugins/vee-validate'
+    '~/plugins/vee-validate',
+    '~/plugins/axios'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -59,7 +60,8 @@ const nuxtConfig = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'cookie-universal-nuxt'
   ],
   /*
    ** Axios module configuration

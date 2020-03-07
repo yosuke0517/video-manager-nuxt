@@ -8,7 +8,9 @@ const getters: GetterTree<VideoListState, RootState> = {
   item: (state) => state.item,
   relatedItems: (state) => state.relatedItems,
   searchMeta: (state) => state.searchMeta,
-  searchItems: (state) => state.searchItems
+  searchItems: (state) => state.searchItems,
+  isFavorite: (state) => state.isFavorite,
+  favoriteItems: (state) => state.favoriteItems
 }
 
 export default getters
