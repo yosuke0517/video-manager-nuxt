@@ -17,6 +17,10 @@ const actions: ActionTree<AuthenticatetState, RootState> = {
     const token = await res.user.getIdToken()
     const cookies = new Cookies()
     cookies.set('jwt_token', JSON.stringify(token))
+
+    // リフレッシュトークンを取得しcookieにセット
+    const refreshToken = res.user.refreshToken
+    cookies.set('refresh_token', refreshToken)
     commit('token', { token })
     this.$router.push('/')
   },
@@ -27,6 +31,9 @@ const actions: ActionTree<AuthenticatetState, RootState> = {
     const token = await res.user.getIdToken()
     const cookies = new Cookies()
     cookies.set('jwt_token', JSON.stringify(token))
+    // リフレッシュトークンを取得しcookieにセット
+    const refreshToken = res.user.refreshToken
+    cookies.set('refresh_token', refreshToken)
     commit('token', { token })
     this.$router.push('/')
   },

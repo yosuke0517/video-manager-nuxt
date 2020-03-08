@@ -24,13 +24,13 @@ const mutations: MutationTree<VideoListState> = {
   },
   mutateRelatedVideos(state, { payload }) {
     // nullのときは空の配列を返す
-    state.relatedItems = payload.items || []
+    state.relatedItems = payload || []
   },
   searchMeta(state, { meta }) {
     state.searchMeta = meta
   },
   searchItems(state, { items }) {
-    if (typeof items.items !== 'undefined') {
+    if (state.searchItems !== null && items.isMore) {
       items.items.forEach((item) => {
         state.searchItems.push(item)
       })
@@ -43,7 +43,7 @@ const mutations: MutationTree<VideoListState> = {
   },
   mutateFavoriteVideos(state, { favoriteItems }) {
     // nullのときは空の配列を返す
-    state.favoriteItems = favoriteItems.items || []
+    state.favoriteItems = favoriteItems || []
   }
 }
 

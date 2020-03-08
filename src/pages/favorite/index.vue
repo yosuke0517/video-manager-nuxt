@@ -27,15 +27,24 @@ import { Items } from '~/types'
 export default class videoDetail extends Vue {
   @Getter('videoList/favoriteItems') favoriteItems: Items
 
-  created() {
-    this.init()
-  }
+  // created() {
+  //   this.init()
+  // }
 
-  async init() {
+  async fetch({ store }) {
     const payload = {
       uri: ROUTES.GET.FAVORITE
     }
-    await this.$store.dispatch('videoList/fetchFavoriteVideos', payload)
+    await store.dispatch('videoList/fetchFavoriteVideos', payload)
   }
+
+  // async init() {
+  //   const payload = {
+  //     uri: ROUTES.GET.FAVORITE
+  //   }
+  //   await this.$store.dispatch('videoList/fetchFavoriteVideos', payload)
+  //   console.log('this.favoriteItems')
+  //   console.log(this.favoriteItems)
+  // }
 }
 </script>

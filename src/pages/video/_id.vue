@@ -1,5 +1,13 @@
 <template>
   <div class="video-box">
+    <v-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      :timeout="timeout"
+      :top="true"
+    >
+      {{ snackMessage }}</v-snackbar
+    >
     <v-layout column justify-center align-center>
       <v-flex xs12 sm8 md6>
         <v-row
@@ -15,9 +23,7 @@
                     <span class="fa-stack fa-lg">
                       <i
                         class="fas fa-heart fa-stack-1x"
-                        :class="[
-                          item.isFavorite ? 'active' : 'has-text-grey-light'
-                        ]"
+                        :class="[isFavorite ? 'active' : 'has-text-grey-light']"
                       ></i></span></span
                 ></a>
               </div>
@@ -28,35 +34,35 @@
                 <span class="title">{{ item.snippet.description }}</span>
               </v-card-text>
             </v-card></v-col
-          ><v-col cols="3"
-            >お気に入り動画がある場合に一覧を表示する</v-col
           ></v-row
         >
         <div class="box">
           <v-system-bar window color="primary">関連動画</v-system-bar>
-          <div
-            v-for="relatedItem in relatedItems"
-            :key="relatedItem.id.videoId"
-          >
-            <hr />
-            <nuxt-link :to="`/video/${relatedItem.id.videoId}`">
-              <article class="media">
-                <div class="media-left">
-                  <figure class="image">
-                    <img
-                      :src="relatedItem.snippet.thumbnails.default.url"
-                      alt="thumbnail"
-                    />
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <div class="content">
-                    <p>{{ relatedItem.snippet.title }}</p>
-                    <small>{{ relatedItem.snippet.channelTitle }}</small>
+          <div v-if="relatedItems.item !== null">
+            <div
+              v-for="relatedItem in relatedItems.items"
+              :key="relatedItem.id.videoId"
+            >
+              <hr />
+              <nuxt-link :to="`/video/${relatedItem.id.videoId}`">
+                <article class="media">
+                  <div class="media-left">
+                    <figure class="image">
+                      <img
+                        :src="relatedItem.snippet.thumbnails.default.url"
+                        alt="thumbnail"
+                      />
+                    </figure>
                   </div>
-                </div>
-              </article>
-            </nuxt-link>
+                  <div class="media-content">
+                    <div class="content">
+                      <p>{{ relatedItem.snippet.title }}</p>
+                      <small>{{ relatedItem.snippet.channelTitle }}</small>
+                    </div>
+                  </div>
+                </article>
+              </nuxt-link>
+            </div>
           </div>
         </div>
       </v-flex>
@@ -67,14 +73,24 @@
 <script lang="ts">
 import { Vue, Getter, Component } from 'nuxt-property-decorator'
 import ROUTES from '~/routes/api'
-import { Items } from '~/types'
+import { ItemDetail } from '~/types'
 @Component({})
 export default class videoDetail extends Vue {
-  @Getter('videoList/item') item: Items
+  @Getter('videoList/item') item: ItemDetail
 
   @Getter('videoList/relatedItems') relatedItems: any
 
   route: any
+
+  isFavorite: boolean = false
+
+  snackMessage: string = ''
+
+  snackbar: boolean = false
+
+  snackbarColor: string = ''
+
+  timeout: number = 6000
 
   async fetch({ route, store }) {
     const payload = {
@@ -87,10 +103,24 @@ export default class videoDetail extends Vue {
     await store.dispatch('videoList/fetchRelatedVideos', relatedVideosPayload)
   }
 
+  created() {
+    this.isFavorite = this.item.isFavorite
+  }
+
   async toggleFavorite() {
     await this.$store.dispatch('videoList/toggleFavorite', {
       uri: ROUTES.POST.TOGGLE_FAVORITE.replace(':id', this.$route.params.id)
     })
+    this.isFavorite = !this.isFavorite
+    if (this.isFavorite) {
+      this.snackMessage = 'お気に入りに追加しました。'
+      this.snackbar = true
+      this.snackbarColor = 'pink'
+    } else {
+      this.snackMessage = 'お気に入りから削除しました。'
+      this.snackbar = true
+      this.snackbarColor = 'info'
+    }
   }
 
   get isLoggedIn() {
