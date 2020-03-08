@@ -1,9 +1,9 @@
-import { MetaTransfer, Items } from '~/types'
+import { MetaTransfer, Items, ItemDetail } from '~/types'
 
 export interface VideoListState {
   meta: MetaTransfer
   items: Items[]
-  item: Items
+  item: ItemDetail
   relatedItems: Items[]
   searchMeta: MetaTransfer
   searchItems: Items[]

@@ -46,19 +46,21 @@ export class RequestClient {
           grant_type: 'refresh_token',
           refresh_token: refreshToken
         }
+
         // Firebase Auth REST API*2を使用してトークンを再取得する処理
         const res = await this.axios.$request({
           method: 'POST',
           headers: {
-            'content-type': 'application/x-www-form-urlencoded'
+            Authorization: '',
+            'Content-Type': 'application/x-www-form-urlencoded'
           },
           data: qs.stringify(data),
           url:
             'https://securetoken.googleapis.com/v1/token?key=' +
             process.env.YOUTUBE_API_KEY
         })
-
-        this.store.commit('authenticate/token', res.id_token)
+        cookies.set('jwt_token', JSON.stringify(res.id_token))
+        this.store.commit('authenticate/token', { token: res.id_token })
 
         // eslint-disable-next-line no-return-await
         return await this.axios.$request({

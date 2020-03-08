@@ -43,9 +43,6 @@ const actions: ActionTree<AuthenticatetState, RootState> = {
     const cookies = new Cookies()
     cookies.remove('jwt_token')
     this.$router.push('/login')
-  },
-  setToken({ commit }, token) {
-    commit('token', { token })
   }
 }
 

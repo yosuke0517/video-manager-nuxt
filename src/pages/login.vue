@@ -60,6 +60,7 @@ export default class Login extends Vue {
   async login() {
     // TODO ログインが成功したらログイン情報を返し、失敗したらnullを返すようにする
     const result = await this.$validator.validateAll()
+
     if (result) {
       const loginUserFilter = {
         email: this.email,
@@ -86,18 +87,15 @@ export default class Login extends Vue {
     }
   }
 
-  reset() {
-    this.name = ''
-    this.email = ''
-    this.password = ''
-    this.passwordConfirmation = ''
-    this.message = ''
-    this.messageFlg = false
-  }
-
   async easyLogin() {
+    // TODO ログインが成功したらログイン情報を返し、失敗したらnullを返すようにする
+
+    const loginUserFilter = {
+      email: 'suke3@email.com',
+      password: 'password'
+    }
     await this.$store
-      .dispatch('authenticate/easyLogin')
+      .dispatch('authenticate/login', loginUserFilter)
       .catch((error: AxiosError) => {
         this.message = error.message
         this.type = 'error'
@@ -111,6 +109,15 @@ export default class Login extends Vue {
       // serverMiddlewareを呼び出してセッションに保存
       // await axios.post('/api/login', { authUser: this.$store.state.User })
     }
+  }
+
+  reset() {
+    this.name = ''
+    this.email = ''
+    this.password = ''
+    this.passwordConfirmation = ''
+    this.message = ''
+    this.messageFlg = false
   }
 }
 </script>

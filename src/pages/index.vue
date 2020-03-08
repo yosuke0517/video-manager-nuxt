@@ -4,7 +4,12 @@
       <div class="text-center">
         <v-row>
           <v-col offset="1" cols="7" md="7">
-            <v-text-field v-model="query" outlined single-line hide-details
+            <v-text-field
+              v-model="query"
+              outlined
+              single-line
+              hide-details
+              @keyup.enter="search"
               ><template v-slot:label>
                 検索 here（文字列を入力してください）！！
                 <v-icon small>fas fa-search</v-icon>
