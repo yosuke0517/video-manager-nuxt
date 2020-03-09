@@ -68,7 +68,7 @@ const nuxtConfig = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://13.112.70.139:8080/'
+    baseURL: 'https://13.114.107.211:8080/'
   },
   proxy: {
     '/api': '/'
