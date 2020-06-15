@@ -79,6 +79,6 @@ export function createRequestClient(axios, cookies, store) {
   return new RequestClient(axios, cookies, store)
 }
 
-// curl 'https://securetoken.googleapis.com/v1/token?key=AIzaSyA9Pb1lqCb3HbnQ4cV4lM2G_tOviPfOyMQ' \
+// curl 'https://securetoken.googleapis.com/v1/token?key=トークン' \
 // -H 'Content-Type: application/x-www-form-urlencoded' \
 // --data 'grant_type=refresh_token&refresh_token=AEu4IL1st-Sy37dnirYbiGmqv7MUz3zb9bSZFKNt8mkLdw4hNsf3IDuM5WSRfmIDGkN4BzC2k6oVvN0LN8aLH-Fkyrz9bbS1Azf7Bda6WtDQgCo9PC3_zKOlqdTBB15PWCW8XWjKBLaRGD50l8ynwSz63fUQnwuY0-L71qHbLO95iIvNEIzjFVqiE-rj2qXenh9-epNRwM5GpKdrfI5DFK8v62j7UjZF5Q'
