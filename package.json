@@ -24,7 +24,7 @@
     "firebase": "^7.9.3",
     "nuxt": "^2.0.0",
     "nuxt-i18n": "^6.6.0",
-    "qs": "^6.9.1",
+    "qs": "^6.9.7",
     "universal-cookie": "^4.0.3",
     "vee-validate": "^2.2.15",
     "vue-youtube": "^1.4.0"
